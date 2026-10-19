@@ -505,7 +505,3 @@ For larger changes, describe the problem, proposed solution, compatibility impac
 ## License
 
 **License: Not yet specified.**
-
-Add the repository's intended license before publishing or redistributing the project. Create a `LICENSE` file containing the full license text and replace this section with the selected license name and relevant attribution requirements.
-
-Do not assume an open-source license applies until the repository owner selects one.

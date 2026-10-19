@@ -504,4 +504,14 @@ For larger changes, describe the problem, proposed solution, compatibility impac
 
 ## License
 
-**License: Not yet specified.**
+**License: Not specified.**
+
+No license declaration was included with the supplied configuration files. Add a `LICENSE` file to the repository and update this section after selecting the appropriate license.
+
+Until a license is declared, do not assume the repository grants permissions associated with MIT, GPL-3.0, or another open-source license.
+
+## Acknowledgments
+
+This configuration depends on the Vim and Neovim ecosystems and the respective maintainers of the integrated plugins and language tools.
+
+Refer to each dependency's official repository for installation instructions, licensing terms, and compatibility information.

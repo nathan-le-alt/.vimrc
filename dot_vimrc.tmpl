@@ -280,38 +280,44 @@ colorscheme codedark
 
 """ ===== Plugin config files =====
 
+if has("win32") || has("win64")
+  let folder = 'vimfiles'
+else
+  let folder = '.vim'
+endif
+
 " --- vim-airline ---
-source ~/vimfiles/vim-config/vim-airline-config.vim
+execute 'source ~/' . folder . '/vim-config/vim-airline-config.vim'
 
 " --- vim-gitgutter ---
-source ~/vimfiles/vim-config/gitgutter.vim
+execute 'source ~/' . folder . '/vim-config/gitgutter.vim'
 
 " --- indentLine ---
-source ~/vimfiles/vim-config/indentLine-config.vim
+execute 'source ~/' . folder . '/vim-config/indentLine-config.vim'
 
 " --- coc.nvim ---
-source ~/vimfiles/vim-config/coc-config.vim
+execute 'source ~/' . folder . '/vim-config/coc-config.vim'
 
 " --- Ale ---
-source ~/vimfiles/vim-config/ale-config.vim
+execute 'source ~/' . folder . '/vim-config/ale-config.vim'
 
 " --- vim-snippets ---
-source ~/vimfiles/vim-config/coc-snippet.vim
+execute 'source ~/' . folder . '/vim-config/coc-snippet.vim'
 
 " --- coc-diagnostics ---
-source ~/vimfiles/vim-config/coc-diagnostics.vim
+execute 'source ~/' . folder . '/vim-config/coc-diagnostics.vim'
 
 " --- coc-prettier ---
-source ~/vimfiles/vim-config/coc-prettier.vim
+execute 'source ~/' . folder . '/vim-config/coc-prettier.vim'
 
 " --- jsdoc ---
-source ~/vimfiles/vim-config/jsdoc.vim
+execute 'source ~/' . folder . '/vim-config/jsdoc.vim'
 
 " --- nerdtree ---
-source ~/vimfiles/vim-config/nerdtree.vim
+execute 'source ~/' . folder . '/vim-config/nerdtree.vim'
 
 " --- coc extensions ---
-source ~/vimfiles/vim-config/coc-extensions.vim
+execute 'source ~/' . folder . '/vim-config/coc-extensions.vim'
 
 """ ===== Backup =====
 

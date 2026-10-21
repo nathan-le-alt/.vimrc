@@ -13,6 +13,11 @@ set ruler             " show cursor position
 set encoding=UTF-8
 set nocp              " disable vi compatibility mode
 set termguicolors     " enable true color support
+if has('win32')
+    set fileformats=dos,unix
+else
+    set fileformats=unix,dos
+endif
 
 " --- Indentation ---
 set tabstop=2        " number of visual spaces per tab

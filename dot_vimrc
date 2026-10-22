@@ -13,10 +13,13 @@ set ruler             " show cursor position
 set encoding=UTF-8
 set nocp              " disable vi compatibility mode
 set termguicolors     " enable true color support
-if has('win32')
-    set fileformats=dos,unix
+
+
+" set fileformat
+if has('win32') || has('win64')
+  set fileformat=dos       " Default format for brand new files on Windows
 else
-    set fileformats=unix,dos
+  set fileformat=unix      " Default format for brand new files on Unix/macOS
 endif
 
 " --- Indentation ---
@@ -53,51 +56,18 @@ endif
 set splitbelow          " split below when splitting horizontal
 set splitright          " split to the right when splitting vertical
 
-""" ===== Highlight =====
-
-" --- Sign Column Icons (Gutter Indicators) ---
-highlight CocErrorSign          guifg=#dc322f guibg=NONE gui=bold
-highlight CocWarningSign        guifg=#cb4b16 guibg=NONE gui=bold
-highlight CocInfoSign           guifg=#268bd2 guibg=NONE gui=bold
-highlight CocHintSign           guifg=#2aa198 guibg=NONE gui=bold
-
-
-" --- Inline Virtual Text (Diagnostics) ---
-highlight CocErrorVirtualText   guifg=#dc322f guibg=#073642 gui=bold
-highlight CocWarningVirtualText guifg=#cb4b16 guibg=#073642 gui=bold
-highlight CocInfoVirtualText    guifg=#268bd2 guibg=#073642 gui=bold
-highlight CocHintVirtualText    guifg=#2aa198 guibg=#073642 gui=bold
-
-
-" --- Floating Windows & Popups ---
-highlight CocFloating           guifg=#839496 guibg=#073642
-highlight FloatBorder           guifg=#586e75 guibg=#073642
-highlight CocFloatBorder        guifg=#586e75 guibg=#073642
-highlight CocFloatDividingLine  guifg=#586e75 guibg=#073642
-
-
-" --- Diagnostics Inside Floating Windows ---
-highlight CocErrorFloat         guifg=#dc322f guibg=#073642 gui=bold
-highlight CocWarningFloat       guifg=#cb4b16 guibg=#073642 gui=bold
-highlight CocInfoFloat          guifg=#268bd2 guibg=#073642 gui=bold
-highlight CocHintFloat          guifg=#2aa198 guibg=#073642 gui=bold
-
-
-" --- Completion Menu Selection ---
-highlight CocMenuSel            guifg=#fdf6e3 guibg=#00212b gui=bold
-
 """ ===== Customization =====
 
 augroup CustomHighlights
   autocmd!
 
   " --- Transparent Backgrounds & Line Numbers ---
-  " autocmd ColorScheme * highlight Normal          guibg=NONE
-  " autocmd ColorScheme * highlight NonText         guibg=NONE
-  " autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE
-  " autocmd ColorScheme * highlight SignColumn      guibg=NONE
+  autocmd ColorScheme * highlight Normal          guibg=NONE
+  autocmd ColorScheme * highlight NonText         guibg=NONE
+  autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE
+  autocmd ColorScheme * highlight SignColumn      guibg=NONE
   autocmd ColorScheme * highlight LineNr          guibg=NONE 
-  " autocmd ColorScheme * highlight CursorLineNr    guibg=NONE guifg=#ff5577 gui=bold
+  autocmd ColorScheme * highlight CursorLineNr    guibg=NONE guifg=#ff5577 gui=bold
 
   " --- Cursor Line & Visual Selection ---
   " autocmd ColorScheme * highlight CursorLine      guifg=NONE    guibg=#073642 gui=NONE
@@ -217,7 +187,7 @@ function! Runcode() abort
   if l:filetype ==# 'python'
     let l:cmd = ['python3', l:file]
   elseif l:filetype ==# 'c'
-    let l:cmd = ['bash', '-c', 'gcc "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
+    let l:cmd = ['bash', '-c', 'clang "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
   elseif l:filetype ==# 'javascript'
     let l:cmd = ['node', l:file]
   else
@@ -233,7 +203,7 @@ function! Runcode() abort
 
   botright split | resize 15
   call term_start(l:cmd, {'curwin': 1})
-  call win_gotoid(l:curr_win)
+  " call win_gotoid(l:curr_win) move the cursor to this buffer
 endfunction
 
 nnoremap <silent> <leader>\ :call Runcode()<cr>
@@ -242,9 +212,9 @@ nnoremap <silent> <leader>\ :call Runcode()<cr>
 """ ===== Vim plugins =====
 " Dynamic plugin directory based on the operating system
 if has("win32") || has("win64")
-    call plug#begin('~/vimfiles/plugged')
+  call plug#begin('~/vimfiles/plugged')
 else
-    call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.vim/plugged')
 endif
 
 " --- Colorscheme ---
@@ -260,26 +230,23 @@ Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
 
 " --- Code helper ---
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 "Plug 'heavenshell/vim-jsdoc', {'do': 'make install'}
 Plug 'preservim/nerdtree'
 
 " --- Language server ---
-" Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " --- Formatter ---
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-" Plug 'prettier/vim-prettier', { 'do': 'npm install --frozen-lockfile --production' }
 
 " --- Git plugins ---
 Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " --- Set colorscheme ---
-" let g:solarized_termcolors=256
 set background=dark
 colorscheme codedark
 
@@ -313,7 +280,7 @@ execute 'source ~/' . folder . '/vim-config/coc-snippet.vim'
 execute 'source ~/' . folder . '/vim-config/coc-diagnostics.vim'
 
 " --- coc-prettier ---
-execute 'source ~/' . folder . '/vim-config/coc-prettier.vim'
+execute 'source ~/' . folder . '/vim-config/coc-format.vim'
 
 " --- jsdoc ---
 execute 'source ~/' . folder . '/vim-config/jsdoc.vim'

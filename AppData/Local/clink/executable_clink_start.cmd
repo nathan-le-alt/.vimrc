@@ -5,6 +5,7 @@ rem Config shortcuts
 doskey edcmd=vim "%LOCALAPPDATA%\clink\clink_start.cmd"
 doskey recmd=call "%LOCALAPPDATA%\clink\clink_start.cmd"
 doskey edhistory=vim "%LOCALAPPDATA%\clink\clink_history"
+doskey python=python3 $*
 
 rem User profile (~)
 doskey ~ = %USERPROFILE%
@@ -59,3 +60,5 @@ rem Psmux sets TMUX and PSMUX_SESSION inside every pane. Skip there.
 rem Also skip when NOPSMUX is set or psmux is missing.
 if not defined TMUX if not defined PSMUX_SESSION if not defined NOPSMUX if not defined PSMUX_SKIP where psmux >nul 2>&1 && psmux new-session && exit
 set PSMUX_SKIP=
+
+set CLINK_START_LOADED=1

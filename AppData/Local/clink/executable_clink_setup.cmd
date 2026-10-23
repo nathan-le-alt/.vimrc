@@ -22,3 +22,5 @@ clink set suggestionlist.default false
 
 :: Hide logo
 clink set clink.logo none
+
+set echo-control-characters off

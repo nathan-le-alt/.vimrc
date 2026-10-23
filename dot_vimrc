@@ -62,12 +62,18 @@ augroup CustomHighlights
   autocmd!
 
   " --- Transparent Backgrounds & Line Numbers ---
-  autocmd ColorScheme * highlight Normal          guibg=NONE
-  autocmd ColorScheme * highlight NonText         guibg=NONE
-  autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE
-  autocmd ColorScheme * highlight SignColumn      guibg=NONE
-  autocmd ColorScheme * highlight LineNr          guibg=NONE 
-  autocmd ColorScheme * highlight CursorLineNr    guibg=NONE guifg=#ff5577 gui=bold
+  autocmd ColorScheme * highlight Normal          guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight NonText         guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight LineNr          guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight CursorLineNr    guibg=NONE ctermbg=NONE guifg=#ff5577 gui=bold
+  autocmd ColorScheme * highlight CursorLine      guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight Folded          guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight FoldColumn      guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight VertSplit       guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight StatusLine      guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight StatusLineNC    guibg=NONE ctermbg=NONE
 
   " --- Cursor Line & Visual Selection ---
   " autocmd ColorScheme * highlight CursorLine      guifg=NONE    guibg=#073642 gui=NONE
@@ -217,9 +223,9 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-" --- Colorscheme ---
-" Plug 'morhetz/gruvbox'
+" --- Appearance ---
 Plug 'tomasiser/vim-code-dark'
+" Plug 'morhetz/gruvbox'
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'cocopon/iceberg.vim'
 
@@ -232,7 +238,7 @@ Plug 'ryanoasis/vim-devicons'
 " --- Code helper ---
 Plug 'honza/vim-snippets'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-"Plug 'heavenshell/vim-jsdoc', {'do': 'make install'}
+"Plug 'heavenshell/vim-jsdoc', {'do': 'make install'} Unix only
 Plug 'preservim/nerdtree'
 
 " --- Language server ---
@@ -252,44 +258,36 @@ colorscheme codedark
 
 """ ===== Plugin config files =====
 
+" Vim configuration for Git edit & Detect the correct config folder
 if has("win32") || has("win64")
   let folder = 'vimfiles'
 else
   let folder = '.vim'
 endif
 
-" --- vim-airline ---
-execute 'source ~/' . folder . '/vim-config/vim-airline-config.vim'
+let s:config_dir = expand('~/' . folder . '/vim-config')
 
-" --- vim-gitgutter ---
-execute 'source ~/' . folder . '/vim-config/gitgutter.vim'
+let s:config_files = [
+  \ 'vim-airline-config.vim',
+  \ 'gitgutter.vim',
+  \ 'indentLine-config.vim',
+  \ 'coc-config.vim',
+  \ 'ale-config.vim',
+  \ 'coc-snippet.vim',
+  \ 'coc-diagnostics.vim',
+  \ 'coc-format.vim',
+  \ 'jsdoc.vim',
+  \ 'nerdtree.vim',
+  \ 'coc-extensions.vim',
+  \ 'vim-minimap.vim'
+  \ ]
 
-" --- indentLine ---
-execute 'source ~/' . folder . '/vim-config/indentLine-config.vim'
-
-" --- coc.nvim ---
-execute 'source ~/' . folder . '/vim-config/coc-config.vim'
-
-" --- Ale ---
-execute 'source ~/' . folder . '/vim-config/ale-config.vim'
-
-" --- vim-snippets ---
-execute 'source ~/' . folder . '/vim-config/coc-snippet.vim'
-
-" --- coc-diagnostics ---
-execute 'source ~/' . folder . '/vim-config/coc-diagnostics.vim'
-
-" --- coc-prettier ---
-execute 'source ~/' . folder . '/vim-config/coc-format.vim'
-
-" --- jsdoc ---
-execute 'source ~/' . folder . '/vim-config/jsdoc.vim'
-
-" --- nerdtree ---
-execute 'source ~/' . folder . '/vim-config/nerdtree.vim'
-
-" --- coc extensions ---
-execute 'source ~/' . folder . '/vim-config/coc-extensions.vim'
+for s:file in s:config_files
+  let s:path = s:config_dir . '/' . s:file
+  if filereadable(s:path)
+    execute 'source' fnameescape(s:path)
+  endif
+endfor
 
 """ ===== Backup =====
 

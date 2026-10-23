@@ -1,0 +1,17 @@
+# Ctrl+O copies the current line (copybuffer plugin)
+"\C-o": clink-copy-line
+
+# Ctrl+X then P copies the current directory (copypath plugin)
+"\C-xp": clink-copy-cwd
+
+# Clear current typing and clear screen in Clink
+Control-l: "\C-e\C-ucls\C-m"
+
+# Clink-fzf tab completion
+"\t": "luafunc:fzf_complete_force"
+"\C-t": "luafunc:fzf_file"
+"\C-r": "luafunc:fzf_history"
+"\M-c": "luafunc:fzf_directory"
+"\M-b": "luafunc:fzf_bindings"
+"\t": "luafunc:fzf_complete_force"
+"\e[27;5;32~": "luafunc:fzf_complete_force"

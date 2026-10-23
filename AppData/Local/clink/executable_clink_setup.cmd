@@ -15,7 +15,7 @@ clink set match.ignore_case relaxed
 clink set autosuggest.enable true
 
 :: Enable the gray, inline "predictive text" as you type
-clink set autosuggest.inline true
+clink set autosuggest.inline false
 
 :: (Optional) Enable the interactive suggestion list popup
 clink set suggestionlist.default false
